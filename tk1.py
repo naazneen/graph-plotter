@@ -1,23 +1,20 @@
+# actual program
+
 import matplotlib
 matplotlib.use('TkAgg')
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-# implement the default mpl key bindings
-from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 import sys
 import math
 import Tkinter as Tk
-import time
-import matplotlib.animation as ani
-from matplotlib import style
-style.use('ggplot')
 
 root = Tk.Tk()
 root.wm_title("Embedding in TK")
 
 f = Figure(figsize=(5, 4), dpi=100)
-# a tk.DrawingArea
+
+# DrawingArea
 canvas = FigureCanvasTkAgg(f, master=root)
 canvas.show()
 canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
@@ -31,6 +28,8 @@ a.grid(True)
 c=np.linspace(-100,100,100)
 b=np.linspace(-100,100,100)
 A,B=np.meshgrid(c,b)
+
+#character position without hands
 def ch():
     a.plot([-100,100],[0,0],'y')
     a.plot([0,0],[-100,100],'y')
@@ -40,6 +39,7 @@ def ch():
     a.contour(A,B,Z,[0])
     a.plot([5,7,12],[-34,-59,-59],'g',[-5,-7,-12],[-34,-59,-59],'g')
 
+ # Initial character position
 def ch1():
     a.cla()
     a.plot([-100,100],[0,0],'y')
@@ -51,7 +51,8 @@ def ch1():
     a.plot([5,9,7,12],[-34,-46,-59,-59],'g',[-5,-7,-12],[-34,-59,-59],'g')
     a.plot([0,-17,-5],[0,-9,-30],'g',[0,15,10],[0,9,30],'g')
     canvas.draw()
-    
+
+# Character position 2
 def ch2():
     a.cla()
     a.plot([-100,100],[0,0],'y')
@@ -63,7 +64,8 @@ def ch2():
     a.plot([5,7,12],[-34,-59,-59],'g',[-5,-9,-7,-12],[-34,-46,-59,-59],'g')
     a.plot([0,17,5],[0,-9,-30],'g',[0,-15,-10],[0,9,30],'g')
     canvas.draw()
-    
+   
+#character position 3
 def ch3():
     a.cla()
     a.set_title("When a mathematician dances")
@@ -77,6 +79,7 @@ def ch3():
     a.plot([0,17,5],[0,-9,-30],'g',[0,-15,-20],[0,9,30],'g')
     canvas.draw()
     
+#y=x
 def _yx():
     a.cla()
     a.set_title('y=x')
@@ -85,7 +88,7 @@ def _yx():
     y=[i for i in x]
     a.plot(x,y,'g')
     canvas.draw()
-
+#y=x2
 def _yx2():
     a.cla()
     a.set_title('y=x^2')
@@ -94,7 +97,7 @@ def _yx2():
     y=[(i**2)/5 for i in x]
     a.plot(x,y,'g')
     canvas.draw()
-
+#y=-x2
 def _y_x2():
     a.cla()
     a.set_title('y=x^2')
@@ -103,7 +106,8 @@ def _y_x2():
     y=[-(i**2)/5 for i in x]
     a.plot(x,y,'g')
     canvas.draw()
-    
+
+#y=-x3
 def _y_x3():
     a.cla()
     a.set_title('y=x^3')
@@ -112,7 +116,7 @@ def _y_x3():
     y=[-(i**3)/65 for i in x]
     a.plot(x,y,'g')
     canvas.draw()
-
+#=x3
 def _yx3():
     a.cla()
     a.set_title('y=x^3')
@@ -121,7 +125,7 @@ def _yx3():
     y=[(i**3)/65 for i in x]
     a.plot(x,y,'g')
     canvas.draw()
-
+#y=-x
 def _y_x():
     a.cla()
     a.set_title('y=-x')
@@ -130,7 +134,7 @@ def _y_x():
     y=[-i for i in x]
     a.plot(x,y,'g')
     canvas.draw()
-
+#dance function
 def dnc():
     for i in range(6):
         ch2()
@@ -159,7 +163,7 @@ def dnc():
         sinx()
         _sinx()
     ch1()
-
+#y=|x|
 def _ymx():
     a.cla()
     a.set_title('y=|x|')
@@ -170,7 +174,7 @@ def _ymx():
     y1=[-i for i in x1]
     a.plot(x,y,'g',x1,y1,'g')
     canvas.draw()
-
+#y=sin(x)
 def sinx():
     a.cla()
     a.set_title('y=sin(x)')
@@ -179,7 +183,7 @@ def sinx():
     y=[12*(math.sin(i)) for i in x]
     a.plot(x,y,'g')
     canvas.draw()
-
+#y=-sin(x)
 def _sinx():
     a.cla()
     a.set_title('y=-sin(x)')
@@ -189,6 +193,7 @@ def _sinx():
     a.plot(x,y,'g')
     canvas.draw()
 
+ # display bar
 def replaceText(text):
     display.delete(0, Tk.END)
     display.insert(0, text)
@@ -201,7 +206,7 @@ def appendToDisplay(text):
         replaceText(text)
     else:
         display.insert(textLength, text)
-
+# i dont know what it does
 def _plot():
     expression = display.get()
     a.set_title(expression)
