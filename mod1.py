@@ -1,3 +1,5 @@
+#a separate module to take user input and plot graph accordingly
+
 import matplotlib
 import Tkinter as Tk
 matplotlib.use('TkAgg')
@@ -9,7 +11,8 @@ from matplotlib.figure import Figure
 
 root=Tk.Tk()
 f = Figure(figsize=(5, 4), dpi=100)
-# a tk.DrawingArea
+
+# DrawingArea
 canvas = FigureCanvasTkAgg(f, master=root)
 canvas.show()
 canvas.get_tk_widget().grid(row=0, column=0, columnspan=5)
@@ -24,7 +27,7 @@ A,B=np.meshgrid(c,b)
 
 def _res():
     root.geometry("500x500")
-    
+# function x=y  
 def _xy():
     m=mg.get()
     m=int(m)
@@ -35,6 +38,7 @@ def _xy():
     a.plot(x,y)
     canvas.draw()
 
+# function to draw circle 
 def _x2y2():
     x=xg.get()
     x=int(x)
@@ -44,6 +48,7 @@ def _x2y2():
     a.contour(A,B,F,[0])
     canvas.draw()
 
+# function to plot quadratic equation
 def _x2x():
     a1=ag.get()
     a1=int(a1)
@@ -53,9 +58,12 @@ def _x2x():
     y=[(a1*(i**2)+(b*i)) for i in x]
     a.plot(x,y)
     canvas.draw()
-
+    
+# Button Scenario
+#trial
 button=Tk.Button(text="Click here",command=_res)
 button.grid(row=1, column=0)
+
 #y=mx+c
 lm=Tk.Label(text="Enter m")
 lm.grid(row=2,column=0)
@@ -67,6 +75,7 @@ cg=Tk.Entry(root)
 cg.grid(row=3,column=1)
 button=Tk.Button(text="Go",command=_xy)
 button.grid(row=3, column=2)
+
 #x2+y2=r2
 lx=Tk.Label(text="Enter x")
 lx.grid(row=4,column=0)
@@ -78,6 +87,7 @@ yg=Tk.Entry(root)
 yg.grid(row=5,column=1)
 button1=Tk.Button(text="Go",command=_x2y2)
 button1.grid(row=5, column=2)
+
 #ax2+bx+c
 la=Tk.Label(text="Enter a")
 la.grid(row=6,column=0)
