@@ -7,12 +7,24 @@ import sys
 import math
 import Tkinter as Tk
 import time
+import ttk
 
+#setting root window
 root = Tk.Tk()
 root.title("Maths is an Art")
+root.configure(background="#99ff99")
+
+scbar=Tk.Scrollbar(root)
+
+#stylesheet
+style = ttk.Style()
+style.configure("BW.TLabel",background="#99ff99", foreground="#006600",font=('Harrington',50) ,fontstyle="Bold")
+style.configure("BW.TButton",background="#70db70", foreground="black",font=('Century Gothic',18) ,fontstyle="Bold")
+style.configure("BW.Label", foreground="red",font=('Century Gothic',10) ,fontstyle="Bold")
+
 
 #Declaring frames
-f1=Tk.Frame(root)
+f1=Tk.Frame(root,bg="#99ff99")
 f2=Tk.Frame(root)
 f3=Tk.Frame(root)
 
@@ -20,45 +32,48 @@ f3=Tk.Frame(root)
 def _shw1():
     f2.grid_remove()
     f3.grid_remove()
-    f1.grid(row=3,column=0,columnspan=3)
+    f1.grid(row=3,column=0,columnspan=4)
+   
     
 def _shw2():
     f1.grid_remove()
     f3.grid_remove()
-    f2.grid(row=3,column=0,columnspan=3)
+    f2.grid(row=3,column=0,columnspan=4)
 
 def _shw3():
     f1.grid_remove()
     f2.grid_remove()
-    f3.grid(row=3,column=0,columnspan=3)
+    f3.grid(row=3,column=0,columnspan=4)
 
 def _quit():
     root.quit()     # stops mainloop
     root.destroy()  # this is necessary on Windows to prevent
                     # Fatal Python Error: PyEval_RestoreThread: NULL tstate    
 #title
-ltitle=Tk.Label(root,text="Mathematics is an Art!")
-ltitle.grid(row=0,column=0,columnspan=3)
+ltitle=ttk.Label(root,text="Mathematics is an Art!",style="BW.TLabel")
+ltitle.grid(row=0,column=0,columnspan=4)
+txt=ttk.Label(root,text="Have you ever seen a mathematician dance?",style="BW.TLabel",font=('Candara',25))
+txt.grid(row=1,column=0,columnspan=3, sticky='W')
 
- 
+
 #Menu Bar
-Btn1=Tk.Button(root,text="Home",command=_shw1)
-Btn2=Tk.Button(root,text="Plot Your Equation",command=_shw2)
-Btn3=Tk.Button(root,text="Learn",command=_shw3)
+Btn1=ttk.Button(root,text="Home",command=_shw1,style="BW.TButton")
+Btn2=ttk.Button(root,text="Plot",command=_shw2,style="BW.TButton")
+Btn3=ttk.Button(root,text="Learn",command=_shw3,style="BW.TButton")
 Btn1.grid(row=2,column=0)
 Btn2.grid(row=2,column=1)
 Btn3.grid(row=2,column=2)
-button = Tk.Button(master=root, text='Quit', command=_quit)
-button.grid(row=1,column=1)
+button = ttk.Button(master=root, text='Quit', command=_quit,style="BW.TButton")
+button.grid(row=2,column=3)
 
 #inside Frame1
-f = Figure(figsize=(5, 4), dpi=100)
+f = Figure(figsize=(6,6), dpi=100)
 # a tk.DrawingArea
 canvas = FigureCanvasTkAgg(f, master=f1)
 canvas.show()
-canvas.get_tk_widget().grid(row=0, column=0,columnspan=3)
+canvas.get_tk_widget().grid(row=0, column=0,columnspan=4,rowspan=8)
 toolbar = NavigationToolbar2TkAgg(canvas,f1)
-toolbar.grid(row=1, column=0, columnspan=5)
+toolbar.grid(row=9, column=0, columnspan=3)
 
 
 a = f.add_subplot(111)
@@ -229,26 +244,28 @@ def _sinx():
     canvas.draw()
 
 _shw1()
+
+
 b1 = Tk.Button(master=f1, text='y=x', command=_yx)
-b1.grid(row=2,column=0)
+b1.grid(row=0,column=4)
 b3 = Tk.Button(master=f1, text='y=-x', command=_y_x)
-b3.grid(row=2,column=1)
+b3.grid(row=0,column=5)
 b6 = Tk.Button(master=f1, text='y=|x|', command=_ymx)
-b6.grid(row=2,column=2)
+b6.grid(row=1,column=4)
 b2 = Tk.Button(master=f1, text='y=x^2', command=_yx2)
-b2.grid(row=3,column=0)
+b2.grid(row=1,column=5)
 b12 = Tk.Button(master=f1, text='y=-(x^2)', command=_y_x2)
-b12.grid(row=3,column=1)
+b12.grid(row=2,column=4)
 b10 = Tk.Button(master=f1, text='y=x^3', command=_yx3)
-b10.grid(row=3,column=2)
+b10.grid(row=2,column=5)
 b11 = Tk.Button(master=f1, text='y=-(x^3)', command=_y_x3)
-b11.grid(row=4,column=0)
+b11.grid(row=3,column=4)
 b8 = Tk.Button(master=f1, text='y=sin(x)', command=sinx)
-b8.grid(row=4,column=1)
+b8.grid(row=3,column=5)
 b9 = Tk.Button(master=f1, text='y=-sin(x)', command=_sinx)
-b9.grid(row=4,column=2)
-b4 = Tk.Button(master=root, text='Show the art', command=dnc)
-b4.grid(row=1,column=0)
+b9.grid(row=4,column=4)
+b4 = ttk.Button(master=root, text='Check Now!', command=dnc, style="BW.TButton")
+b4.grid(row=1,column=3)
 
 
 #inside of Frame2
@@ -311,16 +328,17 @@ def x2x():
 
 
 #y=mx+c
-lm=Tk.Label(f2,text="Enter m")
-lm.grid(row=5,column=0)
-mg=Tk.Entry(f2)
-mg.grid(row=5,column=1)
-lc=Tk.Label(f2,text="Enter c")
-lc.grid(row=6,column=0)
-cg=Tk.Entry(f2)
-cg.grid(row=6,column=1)
-button=Tk.Button(f2,text="Go",command=xy)
-button.grid(row=6, column=2)
+
+lm=Tk.Label(f2,text="y=",width=5)
+lm.grid(row=2,column=0)
+mg=Tk.Entry(f2,width=5)
+mg.grid(row=2,column=1)
+lc=Tk.Label(f2,text="x+",width=5)
+lc.grid(row=2,column=2)
+cg=Tk.Entry(f2,width=5)
+cg.grid(row=2,column=3)
+button=Tk.Button(f2,text="Go",width=5,command=xy)
+button.grid(row=2, column=4)
 #x2+y2=r2
 lx=Tk.Label(f2,text="Enter x")
 lx.grid(row=7,column=0)
@@ -349,6 +367,7 @@ button2=Tk.Button(f2,text="Go",command=x2x)
 button2.grid(row=10, column=2)
 
 #inside of Frame3
+fr1=Tk.Frame(f3)
 f_2 = Figure(figsize=(5, 4), dpi=100)
 # a tk.DrawingArea
 canvas_2 = FigureCanvasTkAgg(f_2, master=f3)
@@ -357,24 +376,65 @@ canvas_2.get_tk_widget().grid(row=0, column=0, columnspan=5)
 toolbar = NavigationToolbar2TkAgg(canvas_2,f3)
 toolbar.grid(row=1, column=0, columnspan=5)
 
-
 a_2 = f_2.add_subplot(111)
 a_2.grid(True)
 c_2=np.linspace(-100,100,100)
 b_2=np.linspace(-100,100,100)
 A_2,B_2=np.meshgrid(c_2,b_2)
 
+def fr1_shw():
+    fr1.grid(row=4,column=0,columnspan=5,rowspan=3)
+
 def _line():
-    a_2.set_title("Plot two points")
-    a_2.plot([-20,20],[-20,20],'ro')
+    #Point A
+    for x in range(0,11):
+        a_2.cla()
+        a_2.set_title("Moving 10 units along positive X-axis")
+        a_2.plot([-20,20],[0,0],'g',[0,0],[20,-20],'g')
+        a_2.plot(x,0,'ro')
+        canvas_2.show()
+    time.sleep(2)  
+    for x in range(0,11):
+        a_2.cla()
+        a_2.set_title("Moving 10 units along positive Y-axis")
+        a_2.plot([-20,20],[0,0],'g',[0,0],[20,-20],'g')
+        a_2.plot(10,x,'ro')
+        canvas_2.show()
+    time.sleep(1)
+    a_2.set_title("This is Point A")
     canvas_2.show()
-    time.sleep(3)  
-    a_2.set_title("Bridge the gap")
-    a_2.plot([-20,20],[-20,20])
+    time.sleep(1)
+
+    #Point B
+    for x in range(0,-11,-1):
+        a_2.cla()
+        a_2.plot(10,10,'ro')
+        a_2.set_title("Moving 10 units along negative X-axis")
+        a_2.plot([-20,20],[0,0],'g',[0,0],[20,-20],'g')
+        a_2.plot(x,0,'ro')
+        canvas_2.show()
+    time.sleep(2)  
+    for x in range(0,-11,-1):
+        a_2.cla()
+        a_2.plot(10,10,'ro')
+        a_2.set_title("Moving 10 units along negative Y-axis")
+        a_2.plot([-20,20],[0,0],'g',[0,0],[20,-20],'g')
+        a_2.plot(-10,x,'ro')
+        canvas_2.show()
+    time.sleep(1)
+    a_2.set_title("This is Point B")
+    canvas_2.show()
+    time.sleep(1)
+    a_2.set_title("Bridge the gap!")
+    a_2.plot([10,-10],[10,-10],'b')
     canvas_2.show()
 
-bline=Tk.Button(f3,text="Line",command=_line)
+bline=Tk.Button(f3,text="Line",command=fr1_shw)
 bline.grid(row=3,column=0)
+l_line=Tk.Label(fr1,text="Ill show you how to plot a line. First Plot two points. Say A(10,10) and B(-10,-10).")
+l_line.grid(row=0,column=0,columnspan=5)
+l_bline=Tk.Button(fr1,text="Click me!" ,command=_line)
+l_bline.grid(row=1,column=0)
 
 Tk.mainloop()
 
