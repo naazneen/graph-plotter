@@ -11,6 +11,7 @@ import math
 import Tkinter as Tk
 import time
 import ttk
+from PIL import ImageTk,Image
 
 #Setting up the kitchen
 root = Tk.Tk()
@@ -289,14 +290,14 @@ b9 = Tk.Button(master=f1, text='y=-sin(x)', command=_sinx, font=('Century Gothic
 b9.grid(row=3,column=6,sticky="W")
 b4 = Tk.Button(master=root, text='Watch Now!', command=dnc,font=('Century Gothic,Bold',17),background="#85e085", foreground="black")
 b4.grid(row=1,column=3)
-lb1=Tk.Label(f1,text="Algebraic Equation: Pls help. I lost my 'X' (~_~)",font=('Century Gothic',14),background="#b3ffb3", foreground="#006600")
+lb1=Tk.Label(f1,text="Algebraic Equation: Help. I lost my 'X' (~_~)",font=('Century Gothic',14),background="#b3ffb3", foreground="#006600")
 lb1.grid(row=4,column=4,columnspan=4,sticky="W")
-lb2=Tk.Label(f1,text="Coordinate Geometry: I'll figure it out(*_*)",font=('Century Gothic',14),background="#b3ffb3", foreground="#006600")
+lb2=Tk.Label(f1,text="Coordinate Geometry: I'll figure it out! (*_*)",font=('Century Gothic',14),background="#b3ffb3", foreground="#006600")
 lb2.grid(row=5,column=4,columnspan=4,sticky="W")
 bp=Tk.Button(f1,text="Let's plot it!",command=_shw2,font=('Century Gothic',14),background="white", foreground="#006600")
 bp.grid(row=6,column=7)
-f1.grid_columnconfigure(4,minsize=40)
-
+f1.grid_columnconfigure(4,minsize=30)
+f1.grid_columnconfigure(8,minsize=10)
 #inside of Frame2
 f_1 = Figure(figsize=(5,5), dpi=100)
 # a tk.DrawingArea
@@ -360,7 +361,7 @@ def x2x():
 
 #y=mx+c
 lbl2=Tk.Label(f2,text='Equation of line:"y=mx+c"',font=('Century Gothic',15),background="#b3ffb3", foreground="#006600")
-lbl2.grid(row=0,column=6,columnspan=8)
+lbl2.grid(row=0,column=6,columnspan=8,sticky="W")
 lm=Tk.Label(f2,text="y=",width=5,font=('Century Gothic',13),background="#b3ffb3")
 lm.grid(row=1,column=6)
 mg=Tk.Entry(f2,width=5,font=('Century Gothic',13))
@@ -374,7 +375,7 @@ button.grid(row=1, column=10)
 
 #x2+y2=r2
 lbl3=Tk.Label(f2,text='Equation of circle:"(x^2)+(y^2)=(r^2)"',font=('Century Gothic',15),background="#b3ffb3", foreground="#006600")
-lbl3.grid(row=2,column=6,columnspan=8)
+lbl3.grid(row=2,column=6,columnspan=8,sticky="W")
 lx=Tk.Label(f2,text="Enter centre(x,y):",font=('Century Gothic',13),background="#b3ffb3")
 lx.grid(row=3,column=6,columnspan=3)
 xg=Tk.Entry(f2,width=5,font=('Century Gothic',13))
@@ -392,7 +393,7 @@ f2.grid_columnconfigure(7,minsize=5)
 
 #ax2+bx+c
 lbl4=Tk.Label(f2,text='Equation of parabola:"a*(x^2)+b(x)+c"',font=('Century Gothic',15),background="#b3ffb3", foreground="#006600")
-lbl4.grid(row=5,column=6,columnspan=8)
+lbl4.grid(row=5,column=6,columnspan=8,sticky="W")
 ag=Tk.Entry(f2,width=5,font=('Century Gothic',13))
 ag.grid(row=6,column=6)
 lb=Tk.Label(f2,text="x^2+",font=('Century Gothic',13),background="#b3ffb3")
@@ -405,17 +406,23 @@ gxc=Tk.Entry(f2,width=5,font=('Century Gothic',13))
 gxc.grid(row=6,column=10)
 button2=Tk.Button(f2,text="Go",command=x2x,font=('Century Gothic',11),background="#b3ffb3")
 button2.grid(row=6, column=11)
+
 f2.grid_columnconfigure(5,minsize=30)
+f2.grid_columnconfigure(12,minsize=10)
+#getting to next frame
+nxtl=Tk.Label(f2,text='Want to see how I do it?',font=('Century Gothic',14),background="#b3ffb3", foreground="#006600")
+nxtl.grid(row=7,column=6,columnspan=8,sticky="W")
+bl=Tk.Button(f2,text="Come!",command=_shw3,font=('Century Gothic',14),background="white", foreground="#006600")
+bl.grid(row=8,column=11)
 
 #inside of Frame3
-fr1=Tk.Frame(f3)
-f_2 = Figure(figsize=(6,6), dpi=100)
+f_2 = Figure(figsize=(5,5), dpi=100)
 # a tk.DrawingArea
 canvas_2 = FigureCanvasTkAgg(f_2, master=f3)
 canvas_2.show()
-canvas_2.get_tk_widget().grid(row=0, column=0, columnspan=5)
+canvas_2.get_tk_widget().grid(row=0, column=0,sticky="W", columnspan=5,rowspan=5)
 toolbar = NavigationToolbar2TkAgg(canvas_2,f3)
-toolbar.grid(row=1, column=0, columnspan=5)
+toolbar.grid(row=6, column=0, columnspan=5)
 
 a_2 = f_2.add_subplot(111)
 a_2.grid(True)
@@ -423,9 +430,30 @@ c_2=np.linspace(-100,100,100)
 b_2=np.linspace(-100,100,100)
 A_2,B_2=np.meshgrid(c_2,b_2)
 
-def fr1_shw():
-    fr1.grid(row=4,column=0,columnspan=5,rowspan=3)
 
+#functions in this frame
+#point
+def _point():
+    for x in range(0,4):
+        a_2.cla()
+        a_2.set_title("Moving 3 units along positive X-axis")
+        a_2.plot([-10,10],[0,0],'g',[0,0],[10,-10],'g')
+        a_2.plot(x,0,'ro')
+        canvas_2.show()
+    time.sleep(2)  
+    for x in range(0,6):
+        a_2.cla()
+        a_2.set_title("Moving 5 units along positive Y-axis")
+        a_2.plot([-10,10],[0,0],'g',[0,0],[10,-10],'g')
+        a_2.plot(3,x,'ro')
+        canvas_2.show()
+    time.sleep(1)
+    a_2.set_title("This is Point P")
+    a_2.text(3,4,'P(3,5)',fontsize=10)
+    canvas_2.show()
+    
+    
+#line
 def _line():
     #Point A
     for x in range(0,11):
@@ -470,12 +498,123 @@ def _line():
     a_2.plot([10,-10],[10,-10],'b')
     canvas_2.show()
 
-bline=Tk.Button(f3,text="Line",command=fr1_shw)
-bline.grid(row=3,column=0)
-l_line=Tk.Label(fr1,text="Ill show you how to plot a line. First Plot two points. Say A(10,10) and B(-10,-10).")
-l_line.grid(row=0,column=0,columnspan=5)
-l_bline=Tk.Button(fr1,text="Click me!" ,command=_line)
-l_bline.grid(row=1,column=0)
+#Quadrants
+a_2.set_title("Quadrants")
+a_2.plot([-4,4],[0,0],'g',[0,0],[4,-4],'g')
+a_2.text(1.5,2,'I Quadrant', fontsize=10)
+a_2.text(1.5,1.5,'(+,+)', fontsize=10)
+a_2.text(-3,2,'II Quadrant', fontsize=10)
+a_2.text(-3,1.5,'(-,+)', fontsize=10)
+a_2.text(-3,-2,'III Quadrant', fontsize=10)
+a_2.text(-3,-1.5,'(-,-)', fontsize=10)
+a_2.text(1.5,-2,'IV Quadrant', fontsize=10)
+a_2.text(1.5,-1.5,'(+,-)', fontsize=10)
+a_2.text(0,4,'Y', fontsize=10)
+a_2.text(4,0,'X', fontsize=10)
+a_2.text(0,-4,'-Y', fontsize=10)
+a_2.text(-4,0,'-X', fontsize=10)
+a_2.text(0,0,'O', fontsize=10)
+canvas_2.draw()
 
+f3.grid_columnconfigure(6,minsize=10)
+#getting subframe
+sf=Tk.Frame(f3,bg="#b3ffb3")
+sf2=Tk.Frame(f3,bg="#b3ffb3")
+lst=Tk.Frame(f3,bg="#b3ffb3")
+
+def shwsf():
+    sf2.grid_remove()
+    lst.grid_remove()
+    sf.grid(row=0,column=7,columnspan=5,rowspan=5)
+
+def shwsf2():
+    sf.grid_remove()
+    lst.grid_remove()
+    sf2.grid(row=0,column=7,columnspan=5,rowspan=5)
+
+def shwlst():
+    sf.grid_remove()
+    sf2.grid_remove()
+    lst.grid(row=0,column=7,columnspan=5,rowspan=5)
+
+head=Tk.Label(sf,text="Let's get Started!",font=('Century Gothic',18),background="#b3ffb3")
+head.grid(row=0,column=0)
+h1=Tk.Label(sf,text="Cartesian Plane",font=('Century Gothic',15),background="#b3ffb3")
+h1.grid(row=1,column=0)
+txt1='''
+Cartesian Plane consists of Two perpendicular
+lines intersecting each other at thier zeros.
+Each perpendicular line is called 'Axis'.
+'''
+t1=Tk.Label(sf,text=txt1,font=('Century Gothic',12),background="#b3ffb3")
+t1.grid(row=2,column=0,sticky="W",columnspan=2,rowspan=3)
+
+h2=Tk.Label(sf,text="Quadrants",font=('Century Gothic',15),background="#b3ffb3")
+h2.grid(row=5,column=0)
+txt2='''
+The axes divides co-ordinate plane into 4 parts.
+These are called Quadrants. Starting from OX-
+they are named as first,second,third and forth
+quadrants in anti-clockwise manner.
+'''
+t2=Tk.Label(sf,text=txt2,font=('Century Gothic',12),background="#b3ffb3")
+t2.grid(row=6,column=0,sticky="W",columnspan=2,rowspan=4)
+
+
+btnxt=Tk.Button(sf,text="Next->",command=shwsf2,font=('Century Gothic',14),background="white", foreground="#006600")
+btnxt.grid(row=10,column=1)
+
+
+#subframe2
+
+bpoint=Tk.Label(sf2,text="Plotting of Points",font=('Century Gothic',15),background="#b3ffb3")
+bpoint.grid(row=1,column=0)
+txt3='''
+Every point on a plane has an ordered pair
+of reference. That is position of point with
+reference to co-ordinate axes.
+Say point P(3,5). Here, 3 is called abscissa;
+distance from X-axis. And 5 is called ordinate;
+distance from Y axis.
+'''
+l_point=Tk.Label(sf2,text=txt3,font=('Century Gothic',12),background="#b3ffb3")
+l_point.grid(row=2,column=0,columnspan=4,rowspan=7)
+ptshw=Tk.Button(sf2,text="Plot" ,command=_point,font=('Century Gothic',13),background="#b3ffb3")
+ptshw.grid(row=1,column=3,sticky="E")
+
+
+bline=Tk.Label(sf2,text="Plotting Line",font=('Century Gothic',15),background="#b3ffb3")
+bline.grid(row=10,column=0)
+txt2='''
+Ill show you how to plot a line when two
+points are given. First Plot the points.
+Say A(10,10) and B(-10,-10). Then join them.
+'''
+l_line=Tk.Label(sf2,text=txt2,font=('Century Gothic',12),background="#b3ffb3")
+l_line.grid(row=11,column=0,columnspan=5)
+l_bline=Tk.Button(sf2,text="Plot" ,command=_line,font=('Century Gothic',13),background="#b3ffb3")
+l_bline.grid(row=10,column=3)
+
+#navigating on subframes
+bprev=Tk.Button(sf2,text="<- Prev",command=shwsf,font=('Century Gothic',14),background="white", foreground="#006600")
+bprev.grid(row=13,column=0)
+bnxt=Tk.Button(sf2,text="Next->",command=shwlst,font=('Century Gothic',14),background="white", foreground="#006600")
+bnxt.grid(row=13,column=3)
+
+
+f3.grid_columnconfigure(13,minsize=30)
+sf2.grid_columnconfigure(13,minsize=10)
+
+#last frame
+#def smile():
+
+
+path='C:\Users\Public\Pictures\Sample Pictures\thanks.jpg'
+img=ImageTk.PhotoImage(Image.open('thanks.jpg'))
+panel=Tk.Label(lst,image=img,width=490,height=490)
+panel.grid(row=0,column=0)
+
+
+shwsf()
 Tk.mainloop()
 
