@@ -535,6 +535,7 @@ def shwsf2():
 def shwlst():
     sf.grid_remove()
     sf2.grid_remove()
+    smile()
     lst.grid(row=0,column=7,columnspan=5,rowspan=5)
 
 head=Tk.Label(sf,text="Let's get Started!",font=('Century Gothic',18),background="#b3ffb3")
@@ -606,10 +607,26 @@ f3.grid_columnconfigure(13,minsize=30)
 sf2.grid_columnconfigure(13,minsize=10)
 
 #last frame
-#def smile():
+def smile():
+    a_2.cla()
+    a_2.grid(True)
+    x=30
+    y=30
+    r_2=12
+    F_2=((A_2-x)**2)+((B_2-y)**2)-(r_2**2)
+    a_2.contour(A_2,B_2,F_2,[0])
+    x2=-30
+    y2=30
+    F_2=((A_2-x2)**2)+((B_2-y2)**2)-(r_2**2)
+    a_2.contour(A_2,B_2,F_2,[0])
+    r_3=75
+    F_2=((A_2)**2)+((B_2)**2)-(r_3**2)
+    a_2.contour(A_2,B_2,F_2,[0])
+    x=[i for i in range(-45,45)]
+    y=[(0.015*(i**2))-45 for i in x]
+    a_2.plot(x,y)
+    canvas_2.show()
 
-
-path='C:\Users\Public\Pictures\Sample Pictures\thanks.jpg'
 img=ImageTk.PhotoImage(Image.open('thanks.jpg'))
 panel=Tk.Label(lst,image=img,width=490,height=490)
 panel.grid(row=0,column=0)
